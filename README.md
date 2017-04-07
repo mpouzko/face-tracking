@@ -1,5 +1,6 @@
 
 v 0.1
+
 installation
 -------------
 - git clone git@github.com:mpouzko/face-tracking.git
