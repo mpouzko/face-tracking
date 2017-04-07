@@ -22,12 +22,12 @@ window.app = {
 		1: {
 			"init":function(){
 
-					app.video.classList.add("mirrorX");
+					app.video.classList.add("mirrorY");
 					app.video.classList.remove("normal");
 				 
 			},
 			"destroy": function(){
-				app.video.classList.remove("mirrorX");
+				app.video.classList.remove("mirrorY");
 				app.video.classList.add("normal");
 				
 
@@ -35,24 +35,34 @@ window.app = {
 
 		},
 		2: {
+			"data" : {},
 			"init":function(){
-					var vid = app.video;
-					var ctracker = new clm.tracker();
-					ctracker.init(pModel);
-					ctracker.start(videoInput);
-					var canvasInput = app.overlay;
-					var cc = canvasInput.getContext('2d');
+					app.slides[2].data = {
+						destroy:false,
+						cc: app.overlay.getContext('2d'),
+						ctracker: new clm.tracker(),
+					}
+					//app.slides[2].data.destroy2 = false;
+					//app.ctracker = new clm.tracker();
+					app.slides[2].data.ctracker.init(pModel);
+					app.slides[2].data.ctracker.start(app.video);
+ 					 
 					function drawLoop() {
+						if (app.slides[2].data.destroy) return;
 					    requestAnimationFrame(drawLoop);
-					    cc.clearRect(0, 0, canvasInput.width, canvasInput.height);
-					    ctracker.draw(canvasInput);
+					    app.slides[2].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+					    app.slides[2].data.ctracker.draw(app.overlay);
 					}
 					drawLoop();
 
 					
 			},
 			"destroy": function(){
+				app.slides[2].data.destroy = true;
+				app.slides[2].data.ctracker.stop(app.video);
+			    app.slides[2].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
 
+				app.slides[2].data.ctracker = null;
 			}
 
 		},
@@ -65,6 +75,7 @@ window.app = {
 	"current" : 0,
 	"video": document.getElementById('videoStream'),
 	"overlay": document.getElementById('overlay'),
+	"music": document.getElementById('music'),
  	 
 	"controls" : {
 
@@ -81,6 +92,9 @@ window.app = {
 
 		},
 		"sound": function(){
+			if (app.music.paused ) app.music.play()
+			else app.music.pause();
+			
 
 		},
 		"feed": function(){
@@ -91,6 +105,7 @@ window.app = {
  
 		},
 		"restart": function(){
+			app.slides[app.current].destroy();
 			app.current = 0;
 			app.controls.goto();
 		},
@@ -158,22 +173,52 @@ app.slides.__defineGetter__(
 
 
 //Responsivness
-/*window.addEventListener('load', function(){
+window.addEventListener('load', function(){
 	var body = document.getElementById("body");
+	var ratio = app.video.videoHeight / app.video.videoWidth;
 	var width = body.clientWidth;
-	var height = body.clientHeight;
+	var height = width * ratio;
+	console.log(width,ratio,height,body.clientHeight);
+	var container = document.getElementById("container");
 	app.video.setAttribute('width',width);
 	app.video.setAttribute('height',height);
+	container.setAttribute('width',width);
+	container.setAttribute('height',height);
+	
 	app.overlay.setAttribute('width',width);
 	
 	app.overlay.setAttribute('height',height);
 
- var script = document.createElement("script");
+/* var script = document.createElement("script");
     
     script.src = "/lib/clmtrackr/examples/ext_js/jsfeat_detect.js";
     script.type = "text/javascript";
-    document.getElementsByTagName("body")[0].appendChild(script);
-});*/
+    document.getElementsByTagName("body")[0].appendChild(script);*/
+});
+ window.addEventListener('resize', function(){
+	var body = document.getElementById("body");
+	var foobar = document.getElementById("foobar");
+	var ratio = app.video.videoHeight / app.video.videoWidth;
+	var width = body.clientWidth;
+	var height = width * ratio;
+	var margin = (body.clientHeight - height) /2;
+	var container = document.getElementById("container");
+	foobar.style.setProperty('height',margin+"px");
+	app.video.setAttribute('width',width);
+	app.video.setAttribute('height',height);
+	container.setAttribute('width',width);
+	container.setAttribute('height',height);
+	
+	app.overlay.setAttribute('width',width);
+	
+	app.overlay.setAttribute('height',height);
+
+/* var script = document.createElement("script");
+    
+    script.src = "/lib/clmtrackr/examples/ext_js/jsfeat_detect.js";
+    script.type = "text/javascript";
+    document.getElementsByTagName("body")[0].appendChild(script);*/
+});
  
 //Init the first slide
 window.app.controls.goto(0);

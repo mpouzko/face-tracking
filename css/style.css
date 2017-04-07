@@ -1,9 +1,10 @@
 body {
 	background: #000;
- 
+	height: 90vh; 
 }
 body * {
 	color:#FFF;
+
 }
 #videoStream { 
     background-color: #000;
@@ -14,6 +15,10 @@ body * {
  	position: relative;
 
 
+ }
+
+ .hidden {
+ 	display:none;
  }
 
  #overlay {
