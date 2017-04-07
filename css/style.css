@@ -1,0 +1,81 @@
+body {
+	background: #000;
+ 
+}
+body * {
+	color:#FFF;
+}
+#videoStream { 
+    background-color: #000;
+}
+
+  #container {
+
+ 	position: relative;
+
+
+ }
+
+ #overlay {
+ 	position: absolute;
+ 	top: 0px;
+ 	left: 0px;
+ 	-o-transform : scaleX(-1);
+ 	-webkit-transform : scaleX(-1);
+ 	transform : scaleX(-1);
+ 	-ms-filter : fliph; /*IE*/
+ 	filter : fliph; /*IE*/
+ 	 
+ 	
+ }
+
+
+.normal {
+ 	-o-transform : scaleX(-1);
+ 	-webkit-transform : scaleX(-1);
+ 	transform : scaleX(-1);
+ 	-ms-filter : fliph; /*IE*/
+ 	filter : fliph; /*IE*/
+ }
+
+.mirrorX {
+	-o-transform : scaleX(1);
+ 	-webkit-transform : scaleX(1);
+ 	transform : scaleX(1);
+ 	-ms-filter : none; /*IE*/
+ 	filter : none; /*IE*/
+}
+.mirrorY {
+	-o-transform : scaleY(-1);
+ 	-webkit-transform : scaleY(-1);
+ 	transform : scaleY(-1);
+ 	-ms-filter : flipv; /*IE*/
+ 	filter : flipv; /*IE*/
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
