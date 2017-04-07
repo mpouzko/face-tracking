@@ -26,8 +26,11 @@ NOTE. If you open index.html in browser as a local file (file:///), you won't ga
 what is implemented
 ---------------------
 1.Display pure webcam 
+
 2. Mirror webcam image horizontally or vertically (???how to define whether to flip horz or vert? - in config?, or add extra keys- on for horz flip, one for vert? )
+
 3. Face features overlay (https://www.auduno.com/clmtrackr/clm_video.html) 
+
 
 KEYBORARD CONTROLS 
 
