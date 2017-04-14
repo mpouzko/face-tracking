@@ -66,6 +66,39 @@ window.app = {
 			}
 
 		},
+		3: { //must be #5
+			"data" : {},
+		  
+			"init":function(){
+					app.slides[3].data = {
+						destroy:false,
+						cc: app.overlay.getContext('2d'),
+						ctracker: new clm.tracker(),
+					}
+					//app.slides[2].data.destroy2 = false;
+					//app.ctracker = new clm.tracker();
+					app.slides[3].data.ctracker.init(pModel);
+					app.slides[3].data.ctracker.start(app.video);
+ 					 
+					function drawLoop() {
+						if (app.slides[3].data.destroy) return;
+					    requestAnimationFrame(drawLoop);
+					    app.slides[3].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+					    app.slides[3].data.ctracker.draw(app.overlay);
+					}
+					drawLoop();
+
+					
+			},
+			"destroy": function(){
+				app.slides[3].data.destroy = true;
+				app.slides[3].data.ctracker.stop(app.video);
+			    app.slides[3].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+
+				app.slides[3].data.ctracker = null;
+			}
+
+		},
 
 		
 
