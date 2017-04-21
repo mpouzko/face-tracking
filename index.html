@@ -11,11 +11,41 @@
 <body id ="body">
 <script src="lib/clmtrackr/clmtrackr.min.js"></script>
 <script src="lib/clmtrackr/models/model_pca_20_svm.js"></script>
+<script src="/lib/clmtrackr/examples/ext_js/dat.gui.min.js"></script>
+<script src="/lib/clmtrackr/examples/ext_js/utils.js"></script>
+		<!-- <script src="/lib/clmtrackr/clmtrackr.js"></script> -->
+<!-- 		<script src="/lib/clmtrackr/models/model_pca_20_svm.js"></script>
+ -->
+ <script src="/lib/clmtrackr/examples/ext_js/Stats.js"></script>
+<script src="/lib/clmtrackr/js/face_deformer.js"></script>
+<script src="/lib/clmtrackr/examples/ext_js/jquery.min.js"></script>
+<script src="ex/js/poisson_new.js"></script>
 	
 
 
 
-
+<div id="controls3" class="hidden  slide-controls">
+				Select mask
+				<select name="mask" id="selectmask">
+					<option value="0">Average face</option>
+					<option value="1">Terminator</option>
+					<option value="2">Walter</option>
+					<option value="3">Clooney</option>
+					<option value="4">Bieber</option>
+					<option value="5">Kim</option>
+					<option value="6">Rihanna</option>
+					<option value="7">Audrey Hepburn</option>
+					<option value="8">Bill Murray</option>
+					<option value="9">Sean Connery</option>
+					<option value="10">Cage</option>
+					<option value="11">The Queen</option>
+					<option value="12">Obama</option>
+					<option value="13">Chuck Norris</option>
+					<option value="14">Mona Lisa</option>
+					<option value="15">Picasso</option>
+					<option value="16">Abstract (Scream)</option>
+				</select>
+			</div>
 
 
 
@@ -24,9 +54,11 @@
 <div id="container" width="600" height="400">
 	<video autoplay="true" width="600" height="400" id="videoStream" class="normal"></video>
 	<canvas id="overlay"  width="600" height="400"  ></canvas>
+	<canvas id="webgl" width="600" height="400"></canvas>
 
 
 </div>
+<canvas id="webgl2" width="600" height="400" class="hidden"></canvas>
 </div>
 
 

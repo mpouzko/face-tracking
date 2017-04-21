@@ -3,7 +3,7 @@ body {
 	height: 90vh; 
 }
 body * {
-	color:#FFF;
+	/*color:#FFF;*/
 
 }
 #videoStream { 
@@ -21,7 +21,18 @@ body * {
  	display:none;
  }
 
- #overlay {
+.slide-controls input { 
+	color: #000;
+}
+.slide-controls {
+	position: fixed;
+	bottom:0px;
+	left:0;
+	width:100%;
+	z-index: 999;
+
+}
+ #overlay, #webgl {
  	position: absolute;
  	top: 0px;
  	left: 0px;
