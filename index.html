@@ -11,16 +11,23 @@
 <body id ="body">
 <script src="lib/clmtrackr/clmtrackr.min.js"></script>
 <script src="lib/clmtrackr/models/model_pca_20_svm.js"></script>
-<script src="/lib/clmtrackr/examples/ext_js/dat.gui.min.js"></script>
-<script src="/lib/clmtrackr/examples/ext_js/utils.js"></script>
-		<!-- <script src="/lib/clmtrackr/clmtrackr.js"></script> -->
-<!-- 		<script src="/lib/clmtrackr/models/model_pca_20_svm.js"></script>
- -->
- <script src="/lib/clmtrackr/examples/ext_js/Stats.js"></script>
-<script src="/lib/clmtrackr/js/face_deformer.js"></script>
-<script src="/lib/clmtrackr/examples/ext_js/jquery.min.js"></script>
+<script src="lib/clmtrackr/examples/ext_js/dat.gui.min.js"></script>
+<script src="lib/clmtrackr/examples/ext_js/utils.js"></script>
+ 
+ <script src="lib/clmtrackr/examples/ext_js/Stats.js"></script>
+<script src="lib/clmtrackr/js/face_deformer.js"></script>
+<script src="lib/clmtrackr/examples/ext_js/jquery.min.js"></script>
 <script src="ex/js/poisson_new.js"></script>
-	
+
+
+ 
+<script src="ex/js/jquery.min.js"></script>
+ 
+
+
+ 
+ 
+ 
 
 
 
@@ -45,25 +52,41 @@
 					<option value="15">Picasso</option>
 					<option value="16">Abstract (Scream)</option>
 				</select>
-			</div>
-
-
-
-<div class="container" >
-<div id="foobar" style="height:1px;width:1px;"></div>
-<div id="container" width="600" height="400">
-	<video autoplay="true" width="600" height="400" id="videoStream" class="normal"></video>
-	<canvas id="overlay"  width="600" height="400"  ></canvas>
-	<canvas id="webgl" width="600" height="400"></canvas>
-
-
-</div>
-<canvas id="webgl2" width="600" height="400" class="hidden"></canvas>
 </div>
 
 
+<div id="controls4" class="hidden  slide-controls">
+	<select name="deformation" id="deform">
+		<option value="unwell">Unwell</option>
+		<option value="inca">Inca</option>
+		<option value="cheery">Cheery</option>
+		<option value="dopey">Dopey</option>
+		<option value="longface">Longface</option>
+		<option value="lucky">Lucky</option>
+		<option value="overcute">Overcute</option>
+		<option value="aloof">Aloof</option>
+		<option value="evil">Evil</option>
+		<option value="artificial">Artificial</option>
+		<option value="none">None</option>
+	</select>
+	<p class="sublabel">Facedeform preset</p>
+</div>
+
+<div class="container" id="main" >
+	<div id="foobar" style="height:1px;width:1px;"></div>
+	<div id="container" width="600" height="400">
+		<video autoplay="true" width="600" height="400" id="videoStream" class="normal"></video>
+		<canvas id="overlay"  width="600" height="400"  ></canvas>
+		<!-- <canvas id="webgl" width="600" height="400" class="hidden"></canvas> -->
+
+
+	</div>
+<!-- <canvas id="webgl2" width="600" height="400" class="hidden"></canvas>
+</div>
+ -->
+</div>
 <audio class="hidden" id="music" autostart="0">
- 	<source src="/music.mp3">
+ 	<source src="music.mp3">
 </audio> 
 
 <script type="text/javascript" src="app.js">

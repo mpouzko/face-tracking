@@ -41,6 +41,7 @@ body * {
  	transform : scaleX(-1);
  	-ms-filter : fliph; /*IE*/
  	filter : fliph; /*IE*/
+ 	z-index:999;
  	 
  	
  }
