@@ -18,8 +18,25 @@ window.app = {
 							window._resize();
 					 
 				};
+			
+				//load json config
+				var xhr = new XMLHttpRequest();
+				xhr.open('GET', 'config.json', false);
+				xhr.send();
+				if (xhr.status != 200) {
+				  console.log( 'could not load config: ' + xhr.status + '= ' + xhr.statusText ); 
+				} else {
+				  
+				  console.log( xhr.responseText ); 
+				  app.config = JSON.parse(xhr.responseText );
+				  app.sequence = app.config.sequence;
+				}
+
 				app.current = 0;
 				app.slides[ app.sequence[app.current ] ].init();
+				var musicSrc = document.getElementById("music-src");
+				musicSrc.src = app.config.music;
+
 			 
 
 			},
@@ -501,6 +518,7 @@ window.app = {
 		},
 
 		4: { // must be #8
+			"data" : {},
 
 			"init":function(){
 								// when everything is ready, automatically start everything ?
@@ -515,6 +533,7 @@ window.app = {
 								var main = document.getElementById('main');
 								container.insertBefore(wgl, container.children[1]);
 								main.insertBefore(wgl2, main.children[1]);
+								app.slides[4].data.destroy = false;
 
 								var overlay = document.getElementById('overlay');
 								var overlayCC = overlay.getContext('2d');
@@ -700,6 +719,11 @@ window.app = {
 								function drawGridLoop() {
 									// get position of face
 									positions = ctrack.getCurrentPosition(vid);
+									if (app.slides[4].data.destroy) {
+										
+										ctrack.stop(app.video);
+										return;
+									}
 
 									overlayCC.clearRect(0, 0, app.overlay.width, app.overlay.height);
 									if (positions) {
@@ -718,7 +742,7 @@ window.app = {
 									
 								function drawMaskLoop() {
 									videocanvas.getContext('2d').drawImage(vid,0,0,videocanvas.width,videocanvas.height);
-									
+
 									var pos = ctrack.getCurrentPosition(vid);
 									// create additional points around face
 									var tempPos;
@@ -816,11 +840,49 @@ window.app = {
 			},
 			"destroy":function(){
 				var control = 	document.getElementById('controls4');
+				app.slides[4].data.destroy = true;
 				control.classList.add('hidden');
 								var canvas = document.getElementById("overlay").getContext("2d");
 							    canvas.clearRect(0, 0, app.overlay.width, app.overlay.height);
 							     document.getElementById('webgl').remove();
 				 				 document.getElementById('webgl2').remove();
+
+
+			}
+
+		},
+
+		5: { // must be #10
+			"data": {},
+			"init" : function(){
+				app.video.classList.add("hidden");
+				var img = document.getElementById("dongle");
+				img.src = app.config.images.slide10;
+				img.classList.remove("hidden");
+			},
+			"destroy" : function(){
+				app.video.classList.remove("hidden");
+				var img = document.getElementById("dongle");
+				img.src = '';
+				img.classList.add("hidden");
+
+
+			}
+
+		},
+		6: { // must be #11
+			"data": {},
+			"init" : function(){
+				var img = document.getElementById("dongle");
+				img.src = app.config.images.slide10;
+				img.classList.remove("hidden");
+				img.classList.add("transparent");
+			},
+			"destroy" : function(){
+				var img = document.getElementById("dongle");
+				img.src = '';
+				img.classList.add("hidden");
+				img.classList.remove("transparent");
 
 
 			}
@@ -833,11 +895,9 @@ window.app = {
 
 
 	"current" : 0,
-	"sequence" : [0,1,4,3,3],
+	
 	"video": document.getElementById('videoStream'),
 	"overlay": document.getElementById('overlay'),
-	/*"webgl": document.getElementById('webgl'),
-	"webgl2": document.getElementById('webgl2'),*/
 	"music": document.getElementById('music'),
  	 
 	"controls" : {
@@ -953,10 +1013,20 @@ app.slides.__defineGetter__(
  				}
  				console.log(width,ratio,height,body.clientHeight);
  				var container = document.getElementById("container");
+ 			
  				app.video.setAttribute('width',width);
  				app.video.setAttribute('height',height);
  				container.setAttribute('width',width);
  				container.setAttribute('height',height);
+ 				container.style.width = width+"px";
+ 				if (width<= body.clientWidth) {
+ 					container.style.margin="0 auto";	
+ 				}
+ 				else {
+ 					container.style.margin="0";
+
+ 				}
+ 			
  				
  				app.overlay.setAttribute('width',width);
  				

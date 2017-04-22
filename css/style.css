@@ -6,13 +6,18 @@ body * {
 	/*color:#FFF;*/
 
 }
+.container {
+	margin: 0 auto;
+	text-align: center;
+}
 #videoStream { 
     background-color: #000;
 }
 
   #container {
-
+  	margin: 0 auto;
  	position: relative;
+ 	text-align: center;
 
 
  }
@@ -25,12 +30,30 @@ body * {
 	color: #000;
 }
 .slide-controls {
+	padding:10px;
+	text-align:center;
 	position: fixed;
 	bottom:0px;
 	left:0;
 	width:100%;
 	z-index: 999;
+	background: #666;
 
+}
+
+img.dongle {
+	width:100%;
+	height:auto;
+	
+
+	z-index:999;
+}
+
+.transparent {
+	opacity:0.5;
+	position: absolute;
+	left:0;
+	top:0;
 }
  #overlay, #webgl {
  	position: absolute;

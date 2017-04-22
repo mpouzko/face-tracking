@@ -1,0 +1,10 @@
+{   "music": "music.mp3",
+    "images" : {
+        "slide10": "images/img10.jpg",
+        "slide11": "images/img11.jpg"
+
+
+        },
+    "sequence" : [0,1,2,3,4,5,6]
+ 
+}

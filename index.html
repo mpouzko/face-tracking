@@ -56,7 +56,7 @@
 
 
 <div id="controls4" class="hidden  slide-controls">
-	<select name="deformation" id="deform">
+	Facedeform preset<select name="deformation" id="deform">
 		<option value="unwell">Unwell</option>
 		<option value="inca">Inca</option>
 		<option value="cheery">Cheery</option>
@@ -69,7 +69,7 @@
 		<option value="artificial">Artificial</option>
 		<option value="none">None</option>
 	</select>
-	<p class="sublabel">Facedeform preset</p>
+ 
 </div>
 
 <div class="container" id="main" >
@@ -77,16 +77,15 @@
 	<div id="container" width="600" height="400">
 		<video autoplay="true" width="600" height="400" id="videoStream" class="normal"></video>
 		<canvas id="overlay"  width="600" height="400"  ></canvas>
+		<img src="/" class="hidden dongle" id="dongle">
 		<!-- <canvas id="webgl" width="600" height="400" class="hidden"></canvas> -->
-
-
 	</div>
 <!-- <canvas id="webgl2" width="600" height="400" class="hidden"></canvas>
 </div>
  -->
 </div>
 <audio class="hidden" id="music" autostart="0">
- 	<source src="music.mp3">
+ 	<source src="music.mp3" id="music-src">
 </audio> 
 
 <script type="text/javascript" src="app.js">
