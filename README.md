@@ -21,6 +21,7 @@ added config.json
 
 
 v 0.1
+-----------------
 
 installation
 -------------
