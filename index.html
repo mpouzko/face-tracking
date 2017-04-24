@@ -75,7 +75,7 @@
 <div class="container" id="main" >
 	<div id="foobar" style="height:1px;width:1px;"></div>
 	<div id="container" width="600" height="400">
-		<video autoplay="true" width="600" height="400" id="videoStream" class="normal"></video>
+		<video autoplay="true" width="600" height="400" id="videoStream" class="normal" onplay="window._resize();"></video>
 		<canvas id="overlay"  width="600" height="400"  ></canvas>
 		<img src="/" class="hidden dongle" id="dongle">
 		<!-- <canvas id="webgl" width="600" height="400" class="hidden"></canvas> -->
@@ -85,8 +85,11 @@
  -->
 </div>
 <audio class="hidden" id="music" autostart="0">
- 	<source src="music.mp3" id="music-src">
+
 </audio> 
+<video class="hidden" id="video10" autostart="0" muted>
+ 	 
+</video> 
 
 <script type="text/javascript" src="app.js">
 </script> 

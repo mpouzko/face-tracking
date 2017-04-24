@@ -7,7 +7,7 @@ window.app = {
 
 				function handleVideo(stream) {
 				    app.video.src = window.URL.createObjectURL(stream);
-				    window._resize();
+
 				}
 				 
 				function videoError(e) {
@@ -35,16 +35,27 @@ window.app = {
 
 				app.current = 0;
 				app.slides[ app.sequence[app.current ] ].init();
-				var musicSrc = document.getElementById("music-src");
-				musicSrc.src = app.config.music;
+				
+				//insert audio background
+				var bgmusic = document.createElement("source");
+				bgmusic.src = app.config.music;
+				var music = document.getElementById("music");
+				music.insertBefore(bgmusic,null);
 
-			 
+				//insert video for slide 10
+				var vid10 = document.getElementById("video10");
+				var vid10src = document.createElement("source");
+				vid10src.src= app.config.images.slide7;
+				vid10.insertBefore(vid10src,null);
+
+
 
 			},
 	"slides" : {
 
 
 		0: { 
+			"name" : "Display pure webcam",
 			"init": function(){
 				navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia || navigator.oGetUserMedia;
 				if (navigator.getUserMedia) {       
@@ -53,6 +64,9 @@ window.app = {
 
 				function handleVideo(stream) {
 				    app.video.src = window.URL.createObjectURL(stream);
+
+
+
 				}
 				 
 				function videoError(e) {
@@ -64,6 +78,7 @@ window.app = {
 			}
 		},
 		1: {
+			"name" : "Mirror webcam image horizontally or vertically",
 			"init":function(){
 
 					app.video.classList.add("mirrorY");
@@ -79,6 +94,7 @@ window.app = {
 
 		},
 		2: {
+			"name" : "Face features overlay",
 			"data" : {},
 			"init":function(){
 					app.slides[2].data = {
@@ -113,6 +129,7 @@ window.app = {
 
 		},
 		3: { //must be #5
+			"name" : "Face substitution",
 			"data" : {
  			 
 			},
@@ -219,23 +236,26 @@ window.app = {
 									// when everything is ready, automatically start everything 
 									var vid = app.video;
 									app.slides[3].data.destroy = false;
+
 									 
 									wgl = document.createElement('canvas');
 									wgl2 = document.createElement('canvas');
 									var container = document.getElementById("container");
 									wgl.setAttribute("id","webgl");
 									wgl2.setAttribute("id","webgl2");
+
 									wgl2.classList.add("hidden");
 									var main = document.getElementById('main');
 									container.insertBefore(wgl, container.children[1]);
 									main.insertBefore(wgl2, main.children[1]);
+
 
 									var overlay = document.getElementById('overlay');
 									var overlayCC = overlay.getContext('2d');
 									 
 									var control = 	document.getElementById('controls3');
 									control.classList.remove('hidden');
-									window._resize();
+									
 
 									
 									/*********** Setup of video/webcam and checking for webGL support *********/
@@ -496,11 +516,14 @@ window.app = {
 									
 
 									// start playing
+
 									vid.play();
 									// start tracking
 									ctrack.start(vid);
 									// start drawing face grid
 									drawGridLoop();
+
+
 
 					
 			},
@@ -521,6 +544,7 @@ window.app = {
 		},
 
 		4: { // must be #8
+			"name" : "Face distortion",
 			"data" : {},
 
 			"init":function(){
@@ -543,7 +567,7 @@ window.app = {
 								 
 								var control = 	document.getElementById('controls4');
 								control.classList.remove('hidden');
-								window._resize();
+							 
 								/*********** Setup of video/webcam and checking for webGL support *********/
 
 								var videoReady = false;
@@ -837,7 +861,7 @@ window.app = {
 								}
 
 								// start video
-								vid.play();
+								//vid.play();
 								// start tracking
 								ctrack.start(vid);
 								// start drawing face grid
@@ -863,6 +887,7 @@ window.app = {
 		},
 
 		5: { // must be #10
+			"name" : "display image instead of webcam feed",
 			"data": {},
 			"init" : function(){
 				app.video.classList.add("hidden");
@@ -881,6 +906,8 @@ window.app = {
 
 		},
 		6: { // must be #11
+			"name" : "display semi transparent image overlay over webcam",
+
 			"data": {},
 			"init" : function(){
 				var img = document.getElementById("dongle");
@@ -900,6 +927,8 @@ window.app = {
 		},
 
 		7: { 	//must be #3
+			"name" : "Numbers feature overlay",
+
 			"data" : {},
 			"init":function(){
 					app.slides[7].data = {
@@ -954,6 +983,8 @@ window.app = {
 
 		},
 		8: { 	//must be #4
+			"name" : "triangulated face overlay",
+
 			"data" : {},
 			"init":function(){
 					app.slides[8].data = {
@@ -977,11 +1008,11 @@ window.app = {
 
 					    
 					    //draw triangles only if model has fit enough
-					    if  (app.slides[8].data.ctracker.getScore() >= 0.5) {
+					    //if  (app.slides[8].data.ctracker.getScore() >= 0.5) {
 					    	draw_trianlges(app.slides[8].data.ctracker.getCurrentPosition( ));
 					    	app.slides[8].data.ctracker.draw(app.overlay,app.slides[8].data.ctracker.getCurrentParameters( ),'vertices');
 
-					    }
+					    //}
 					//    console.log( app.slides[7].data.ctracker.getCurrentPosition( ));
 
 					}
@@ -1032,8 +1063,9 @@ window.app = {
 
 		},
 		
-		9: { 	//must be #6
+		9: { 	//must be #7
 					"data" : {},
+					"name" : "Image over face (PNG with transparency that moves with nose tracking point) ",
 					"init":function(){
 							app.slides[9].data = {
 								destroy:false,
@@ -1095,6 +1127,83 @@ window.app = {
 					}
 
 				},
+	10: { 	//must be #7
+					"data" : {},
+					"name" : "Video overlay",
+					"init":function(){
+							app.slides[10].data = {
+								destroy:false,
+								cc: app.overlay.getContext('2d'),
+								ctracker: new clm.tracker(),
+							}
+							
+							app.slides[10].data.ctracker.init(pModel);
+							app.slides[10].data.ctracker.start(app.video);
+							app.overlay.classList.add("mirrorX");
+							app.video.classList.add("mirrorX");
+							var img = document.getElementById("video10");
+							img.play();
+							function drawLoop() {
+								if (app.slides[10].data.destroy) return;
+							    requestAnimationFrame(drawLoop);
+							    app.slides[10].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+							    draw_img(app.slides[10].data.ctracker.getCurrentPosition( ));
+
+
+							}
+
+							function draw_img(pos) {
+								if (!pos) return;
+
+								app.slides[10].data.cc.save();
+								app.slides[10].data.cc.beginPath();
+								app.slides[10].data.cc.fillStyle = '#fF0000';
+								app.slides[10].data.cc.strokeStyle="lime";
+								app.slides[10].data.cc.lineWidth = 2;
+		     					app.slides[10].data.cc.lineCap = 'butt';
+		     					app.slides[10].data.cc.moveTo( pos[0][0], pos[0][1] );
+								for (i=0;i<19;i++) {
+									//app.slides[10].data.cc.moveTo( pos[i][0], pos[i][1] );
+									app.slides[10].data.cc.lineTo(pos[i+1][0], pos[i+1][1]);
+
+								}
+									//app.slides[10].data.cc.moveTo( pos[19][0], pos[19][1] );
+									//app.slides[10].data.cc.lineTo(pos[0][0], pos[0][1]);
+									
+									app.slides[10].data.cc.closePath();
+								//	app.slides[10].data.cc.fill();
+
+								    app.slides[10].data.cc.clip();
+								    app.slides[10].data.cc.drawImage(img, 0,0,app.overlay.width, app.overlay.height);
+								    var headWidth = Math.sqrt( Math.pow(pos[1][0]-pos[13][0],2) + Math.pow(pos[1][1]-pos[13][1],2) );
+								    var headHeight = Math.sqrt( Math.pow(pos[20][0]-pos[7][0],2) + Math.pow(pos[20][1]-pos[7][1],2) ) * 1.5;
+								    //app.slides[10].data.cc.drawImage(img, (pos[62][0] - headWidth/2 ), (pos[62][1] - headHeight/2), headWidth, headHeight);
+								    
+								    app.slides[10].data.cc.restore();
+									
+
+
+
+
+							};
+
+							drawLoop();
+
+							
+					},
+					"destroy": function(){
+						var img = document.getElementById("video10");
+						img.pause();
+						app.overlay.classList.remove("mirrorX");
+						app.video.classList.remove("mirrorX");
+						app.slides[10].data.destroy = true;
+						app.slides[10].data.ctracker.stop(app.video);
+					    app.slides[10].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+
+						app.slides[10].data.ctracker = null;
+					}
+
+				},
 
 
 	},
@@ -1117,7 +1226,10 @@ window.app = {
 			if ( app.current < (app.slides.length-1) ) app.controls.goto(1);
 		},
 		"restartCurrent": function(){
-			app.controls.goto();
+			 app.slides[ app.sequence[app.current] ].destroy();
+			 app.slides[ app.sequence[app.current] ].init();
+			 console.log( "slide: " + app.current, app.slides[ app.sequence[app.current] ].name );
+
 
 		},
 		"sound": function(){
@@ -1142,8 +1254,11 @@ window.app = {
 			if (inc == 0) {
 				app.current=0;
 			}
+			window._resize();
 			app.slides[ app.sequence[app.current += inc] ].init();
-			console.log( "slide: " + app.current);
+			console.log( "slide: " + app.current, app.slides[ app.sequence[app.current] ].name );
+
+
 		}
 	} 
 };
@@ -1215,11 +1330,12 @@ app.slides.__defineGetter__(
  				var ratio = v.videoHeight / v.videoWidth;
  				var width = body.clientWidth;
  				var height = width * ratio;
+ 
  				if ( height > body.clientHeight) {
  					height = body.clientHeight;
  					width = height / ratio;
  				}
- 				console.log(width,ratio,height,body.clientHeight);
+
  				var container = document.getElementById("container");
  			
  				app.video.setAttribute('width',width);
@@ -1263,4 +1379,5 @@ app.slides.__defineGetter__(
  
 //Init video
 window.app.init();
+
 
