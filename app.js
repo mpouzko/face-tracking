@@ -7,17 +7,18 @@ window.app = {
 
 				function handleVideo(stream) {
 				    app.video.src = window.URL.createObjectURL(stream);
+				    window._resize();
 				}
 				 
 				function videoError(e) {
 				    alert("something went wrong. see devTools console");
 				}
 
-				app.video.oncanplay = function(){
+				/*app.video.oncanplay = function(){
 						 
 							window._resize();
 					 
-				};
+				};*/
 			
 				//load json config
 				var xhr = new XMLHttpRequest();
@@ -95,6 +96,8 @@ window.app = {
 					    requestAnimationFrame(drawLoop);
 					    app.slides[2].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
 					    app.slides[2].data.ctracker.draw(app.overlay);
+
+
 					}
 					drawLoop();
 
@@ -620,12 +623,7 @@ window.app = {
 								ctrack.init(pModel);
 
 							
-									// start video
-									vid.play();
-									// start tracking
-									ctrack.start(vid);
-									// start drawing face grid
-									drawGridLoop();
+								
 								
 
 								var fd = new faceDeformer();
@@ -837,6 +835,18 @@ window.app = {
 								for (var i = 0;i < pnums;i++) {
 									ph['component '+(i+3)] = presets['unwell'][i];
 								}
+
+								// start video
+								vid.play();
+								// start tracking
+								ctrack.start(vid);
+								// start drawing face grid
+								drawGridLoop();
+
+								 
+
+
+
 			},
 			"destroy":function(){
 				var control = 	document.getElementById('controls4');
@@ -889,7 +899,203 @@ window.app = {
 
 		},
 
+		7: { 	//must be #3
+			"data" : {},
+			"init":function(){
+					app.slides[7].data = {
+						destroy:false,
+						cc: app.overlay.getContext('2d'),
+						ctracker: new clm.tracker(),
+					}
+					//app.slides[2].data.destroy2 = false;
+					//app.ctracker = new clm.tracker();
+					app.slides[7].data.ctracker.init(pModel);
+					app.slides[7].data.ctracker.start(app.video);
+					app.overlay.classList.add("mirrorX"); //otherwise, numbers are mirrored
+					app.video.classList.add("mirrorX"); //otherwise, numbers are mirrored
+						 
+					function drawLoop() {
+						if (app.slides[7].data.destroy) return;
+					    requestAnimationFrame(drawLoop);
+					    app.slides[7].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+					    //app.slides[7].data.ctracker.draw(app.overlay);
+					    draw_points(app.slides[7].data.ctracker.getCurrentPosition( ));
+					//    console.log( app.slides[7].data.ctracker.getCurrentPosition( ));
+
+					}
+					function draw_points(pos) {
+						app.slides[7].data.cc.fillStyle="lime";
+						app.slides[7].data.cc.font = app.config.fontsize;
+						app.slides[7].data.cc.textAlign = "center";
+
+						for (i = 0; i< pos.length; i++) {
+							//app.slides[7].data.cc.fillRect(pos[i][0],pos[i][1],2,2);
+							app.slides[7].data.cc.fillText(i, pos[i][0], pos[i][1]); 
+
+
+
+
+						}
+
+					}
+					drawLoop();
+
+					
+			},
+			"destroy": function(){
+				app.overlay.classList.remove("mirrorX");
+				app.video.classList.remove("mirrorX");
+				app.slides[7].data.destroy = true;
+				app.slides[7].data.ctracker.stop(app.video);
+			    app.slides[7].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+
+				app.slides[7].data.ctracker = null;
+			}
+
+		},
+		8: { 	//must be #4
+			"data" : {},
+			"init":function(){
+					app.slides[8].data = {
+						destroy:false,
+						cc: app.overlay.getContext('2d'),
+						ctracker: new clm.tracker(),
+					}
+					var outerPoints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 33 ];
+					//app.slides[2].data.destroy2 = false;
+					//app.ctracker = new clm.tracker();
+					app.slides[8].data.ctracker.init(pModel);
+					app.slides[8].data.ctracker.start(app.video);
+					app.overlay.classList.add("mirrorX");
+					app.video.classList.add("mirrorX");
+					
+						   
+					function drawLoop() {
+						if (app.slides[8].data.destroy) return;
+					    requestAnimationFrame(drawLoop);
+					    app.slides[8].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+
+					    
+					    //draw triangles only if model has fit enough
+					    if  (app.slides[8].data.ctracker.getScore() >= 0.5) {
+					    	draw_trianlges(app.slides[8].data.ctracker.getCurrentPosition( ));
+					    	app.slides[8].data.ctracker.draw(app.overlay,app.slides[8].data.ctracker.getCurrentParameters( ),'vertices');
+
+					    }
+					//    console.log( app.slides[7].data.ctracker.getCurrentPosition( ));
+
+					}
+
+					function draw_trianlges(pos) {
+						
+						app.slides[8].data.cc.strokeStyle="lime";
+						app.slides[8].data.cc.lineWidth = 1;
+     					app.slides[8].data.cc.lineCap = 'butt';
+     					var corners = [ [0,0], [0,app.overlay.height], [app.overlay.width,0], [app.overlay.width, app.overlay.height] ];
+						
+
+						for (i = 0; i < pos.length; i++) {
+							//draw outer lines
+							if (i in outerPoints) {
+								var point = [];
+								var range = 1000000000;
+								//define closest canvas corner
+								for ( j=0; j<corners.length; j++) {
+									tmp = Math.sqrt( Math.pow(pos[i][0]-corners[j][0],2) + Math.pow(pos[i][1]-corners[j][1],2) );
+									if ( tmp < range) {
+										range = tmp;
+										point = [ corners[j][0], corners[j][1] ];
+									}
+								}
+								//draw a line
+								app.slides[8].data.cc.beginPath();
+								app.slides[8].data.cc.moveTo(pos[i][0],pos[i][1]);
+								app.slides[8].data.cc.lineTo(point[0],point[1]);
+								app.slides[8].data.cc.stroke();
+							}
+						}
+					};
+
+					drawLoop();
+
+					
+			},
+			"destroy": function(){
+				app.overlay.classList.remove("mirrorX");
+				app.video.classList.remove("mirrorX");
+				app.slides[8].data.destroy = true;
+				app.slides[8].data.ctracker.stop(app.video);
+			    app.slides[8].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+
+				app.slides[8].data.ctracker = null;
+			}
+
+		},
 		
+		9: { 	//must be #6
+					"data" : {},
+					"init":function(){
+							app.slides[9].data = {
+								destroy:false,
+								cc: app.overlay.getContext('2d'),
+								ctracker: new clm.tracker(),
+							}
+							//62-th point
+							
+							app.slides[9].data.ctracker.init(pModel);
+							app.slides[9].data.ctracker.start(app.video);
+							app.overlay.classList.add("mirrorX");
+							app.video.classList.add("mirrorX");
+
+
+							var img = new Image();	
+							img.src = app.config.images.slide6;
+
+							 
+							
+
+							 
+							
+								   
+							function drawLoop() {
+								if (app.slides[9].data.destroy) return;
+							    requestAnimationFrame(drawLoop);
+							    app.slides[9].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+							    draw_img(app.slides[9].data.ctracker.getCurrentPosition( ));
+
+							}
+
+
+
+							function draw_img(pos) {
+							//	pos[62] -nose;
+							//	1-13 - width
+							//	20-7  - height
+							if (pos) {
+								var headWidth = Math.sqrt( Math.pow(pos[1][0]-pos[13][0],2) + Math.pow(pos[1][1]-pos[13][1],2) );
+								var headHeight = Math.sqrt( Math.pow(pos[20][0]-pos[7][0],2) + Math.pow(pos[20][1]-pos[7][1],2) ) * 1.5;
+								app.slides[9].data.cc.drawImage(img, (pos[62][0] - headWidth/2 ), (pos[62][1] - headHeight/2), headWidth, headHeight);
+							}
+
+
+							};
+
+							drawLoop();
+
+							
+					},
+					"destroy": function(){
+						app.overlay.classList.remove("mirrorX");
+						app.video.classList.remove("mirrorX");
+						app.slides[9].data.destroy = true;
+						app.slides[9].data.ctracker.stop(app.video);
+					    app.slides[9].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+
+						app.slides[9].data.ctracker = null;
+					}
+
+				},
+
 
 	},
 
@@ -928,12 +1134,14 @@ window.app = {
  
 		},
 		"restart": function(){
-			//app.slides[ app.sequence[app.current] ].destroy();
-			app.current = 0;
+ 
 			app.controls.goto();
 		},
 		"goto": function (inc = 0) {
 			app.slides[ app.sequence[app.current] ].destroy();
+			if (inc == 0) {
+				app.current=0;
+			}
 			app.slides[ app.sequence[app.current += inc] ].init();
 			console.log( "slide: " + app.current);
 		}

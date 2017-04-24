@@ -79,11 +79,11 @@ img.dongle {
  }
 
 .mirrorX {
-	-o-transform : scaleX(1);
- 	-webkit-transform : scaleX(1);
- 	transform : scaleX(1);
- 	-ms-filter : none; /*IE*/
- 	filter : none; /*IE*/
+	-o-transform : scaleX(1) !important;
+ 	-webkit-transform : scaleX(1) !important;;
+ 	transform : scaleX(1) !important;;
+ 	-ms-filter : none !important;; /*IE*/
+ 	filter : none !important;; /*IE*/
 }
 .mirrorY {
 	-o-transform : scaleY(-1);

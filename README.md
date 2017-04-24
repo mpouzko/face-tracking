@@ -1,3 +1,22 @@
+v 0.3
+----------
+What is implemeted:
+
+- 1. Display pure webcam + 
+- 2. Mirror webcam image horizontally or vertically + 
+- 2. Face features overlay (https://www.auduno.com/clmtrackr/clm_video.html) + 
+- 3. Numbers feature overlay +
+- 4. triangulated face overlay (http://imgur.com/yzaQM6j)  +
+- 5. Face substitution (https://www.auduno.com/clmtrackr/examples/facesubstitution.html) +
+- 6. Image over face (PNG with transparency that moves with nose tracking point) +
+
+- 8. Face distortion (https://www.auduno.com/clmtrackr/examples/facedeform.html) +
+
+- 10. display image instead of webcam feed +
+- 11. display semi transparent image overlay over webcam +
+
+
+
 v 0.2
 ----------
 
