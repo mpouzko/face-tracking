@@ -1,21 +1,107 @@
-{   "music": "music.mp3",
+{
+
+    "pattern" : "0",
+    "music": "music.mp3",
 	"mirrorStyle" : "mirrorY",
-	"faceOverlayModel" : "5",
-	"deformedFacePattern" : "longface",
+	"faceOverlayModel" : "0",
+	"deformedFacePattern" : "unwell",
+    "fontsize" : "12px Arial",
+    "showVectorMask" : "1",
+    "videoLooped" : "1",
+    "image" : "images/img10.jpg",
+    "video" : "images/video7.mp4",
+    "preserveVideoRatio" : "1",
 
     "images" : {
         "slide10": "images/img10.jpg",
         "slide11": "images/img11.jpg",
         "slide6": "images/img6.png",
         "slide7": "images/video7.mp4"
-
-
         },
     "sequence" : [0,1,2,3,4,5,6,7,8,10,11,12],
-    "fontsize" : "12px Arial"
-    
+    "slides": {
+        "0" : {
+            "pattern" : "0"
+        },
+        "1": {
+            "pattern": "9",
+            "music" : "music.mp3",
+            "mirrorStyle" : "mirrorX",
+            "preserveVideoRatio" : "1"
 
+        },
+        "2": {
+            "pattern": "5",
+            "music" : "",
+            "mirrorStyle" : "mirrorY",
+            "showVectorMask" : "0"
 
+        },
+        "3": {
+            "pattern": "0"
+           
+        },
+        "4": {
+            "pattern": "3",
+            "fontsize" : "8px Times"
+           
+        },
 
- 
+        "5": {
+            "pattern": "4",
+            "music" : "music1.mp3"
+           
+        },
+        "6": {
+            "pattern": "5",
+            "faceoverlayModel" : "6",
+            "showVectorMask" : "0"
+           
+        },
+
+        "7": {
+            "pattern": "6",
+            "image" : "images/img6.png"
+           
+        },
+
+        "8": {
+            "pattern": "7",
+            "video" : "images/video7.mp4"  
+        },
+
+        "9": {
+            "pattern": "8",
+            "deformedFacePattern" : "evil"  
+        },
+
+        "10": {
+            "pattern": "9",
+            "video" : "images/video7.mp4"  
+        },
+
+        "11": {
+            "pattern": "10",
+            "image" : "images/img10.jpg",
+            "music" : "music.mp3"  
+        },
+        "12": {
+            "pattern": "11",
+            "image" : "images/img10.jpg"  
+        },
+        
+        "13": {
+            "pattern": "0",
+            "music": "music.mp3",
+            "mirrorStyle" : "mirrorY",
+            "faceOverlayModel" : "5",
+            "deformedFacePattern" : "longface",
+            "fontsize" : "12px Arial",
+            "showVectorMask" : "1",
+            "videoLooped" : "1",
+            "image" : "images/img10.jpg",
+            "video" : "images/video7.mp4",
+            "preserveVideoRatio": "1"  
+        }
+    }
 }
