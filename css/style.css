@@ -55,7 +55,7 @@ img.dongle {
 	left:0;
 	top:0;
 }
- #overlay, #webgl {
+  #overlay, #webgl {
  	position: absolute;
  	top: 0px;
  	left: 0px;
@@ -64,9 +64,7 @@ img.dongle {
  	transform : scaleX(-1);
  	-ms-filter : fliph; /*IE*/
  	filter : fliph; /*IE*/
- 	z-index:999;
- 	 
- 	
+ 	 	
  }
 
 

@@ -1,0 +1,90 @@
+// I added this file since i cannot add comments in json.file in case parse errors occur
+
+/*
+The slides are:
+----------------
+0. Display pure webcam + 
+1. Mirror webcam image horizontally or vertically + 
+2. Face features overlay (https://www.auduno.com/clmtrackr/clm_video.html) + 
+3. Numbers feature overlay +
+4. triangulated face overlay (http://imgur.com/yzaQM6j)  +
+5. Face substitution (https://www.auduno.com/clmtrackr/examples/facesubstitution.html) +
+6. Image over face (PNG with transparency that moves with nose tracking point) +
+7. Video over face + 
+8. Face distortion (https://www.auduno.com/clmtrackr/examples/facedeform.html) +
+
+10. display image instead of webcam feed +
+11. display semi transparent image overlay over webcam +
+12. Video over face with no clipping (rectangle) + 
+
+
+*** We have no 9th slide - it not implemented
+
+*/
+{   
+
+	// file with background music (starting from current folder )
+	// if you have a file "sound.mp3" in folder called "media". just put value  "media/sound.mp3"
+	"music": "music.mp3",
+
+	//for slide #1
+	//we have two values here mirrorX and mirrorY.
+	"mirrorStyle" : "mirrorY",
+
+	//for slide #5
+	/*	
+	Possible values are: (just put a proper number in config)
+	0>   Average face
+	1>   Terminator
+	2>   Walter
+	3>   Clooney
+	4>   Bieber
+	5>   Kim
+	6>   Rihanna
+	7>   Audrey Hepburn
+	8>   Bill Murray
+	9>   Sean Connery
+	10>   Cage
+	11>   The Queen
+	12>   Obama
+	13>   Chuck Norris
+	14>   Mona Lisa
+	15>   Picasso
+	16>   Abstract (Scream)
+	*/
+	"faceOverlayModel" : "5",
+
+	//for slide #8
+	/* Values are: (mind lowercase letters)
+	unwell
+	inca
+	cheery
+	dopey
+	longface
+	lucky
+	overcute
+	aloof
+	evil
+	artificial
+	*/
+	"deformedFacePattern" : "longface",
+
+    "images" : {
+    	//for slide #10
+        "slide10": "images/img10.jpg",
+        //for slide #11
+        "slide11": "images/img11.jpg",
+
+        //for slide #6
+        "slide6": "images/img6.png",
+
+        //for slide #7 - video in mp4
+        "slide7": "images/video7.mp4"
+        },
+
+     //slides sequence   
+    "sequence" : [0,1,2,3,4,5,6,7,8,10,11,12],
+
+    //for slide #3 - font style, if numbers are too big, or too small
+    "fontsize" : "12px Arial"
+}

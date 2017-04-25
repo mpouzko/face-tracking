@@ -14,14 +14,13 @@
 <script src="lib/clmtrackr/examples/ext_js/dat.gui.min.js"></script>
 <script src="lib/clmtrackr/examples/ext_js/utils.js"></script>
  
- <script src="lib/clmtrackr/examples/ext_js/Stats.js"></script>
+<script src="lib/clmtrackr/examples/ext_js/Stats.js"></script>
 <script src="lib/clmtrackr/js/face_deformer.js"></script>
 <script src="lib/clmtrackr/examples/ext_js/jquery.min.js"></script>
 <script src="ex/js/poisson_new.js"></script>
-
-
- 
 <script src="ex/js/jquery.min.js"></script>
+
+
  
 
 
@@ -74,15 +73,18 @@
 
 <div class="container" id="main" >
 	<div id="foobar" style="height:1px;width:1px;"></div>
+	
+
 	<div id="container" width="600" height="400">
-		<video autoplay="true" width="600" height="400" id="videoStream" class="normal" onplay="window._resize();"></video>
-		<canvas id="overlay"  width="600" height="400"  ></canvas>
+		<video autoplay="true" width="600" height="400" id="videoStream" class="normal"  onplay="app.initStart();" ></video>
+		<canvas id="overlay"  width="600" height="400"  > </canvas>
+		<!-- <canvas id="webgl" width="600" height="400" ></canvas> -->
 		<img src="/" class="hidden dongle" id="dongle">
-		<!-- <canvas id="webgl" width="600" height="400" class="hidden"></canvas> -->
+		
 	</div>
-<!-- <canvas id="webgl2" width="600" height="400" class="hidden"></canvas>
-</div>
- -->
+		<!-- <canvas id="webgl2" class="hidden" width="600" height="400" ></canvas> -->
+	
+
 </div>
 <audio class="hidden" id="music" autostart="0">
 
