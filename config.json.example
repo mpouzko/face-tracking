@@ -1,7 +1,7 @@
 // I added this file since i cannot add comments in json.file in case parse errors occur
 
 /*
-The slides are:
+The patterns are:
 ----------------
 0. Display pure webcam + 
 1. Mirror webcam image horizontally or vertically + 
@@ -16,74 +16,173 @@ The slides are:
 10. display image instead of webcam feed +
 11. display semi transparent image overlay over webcam +
  
-
-
- 
+Here we go:
 */
-{   
 
-	// file with background music (starting from current folder )
-	// if you have a file "sound.mp3" in folder called "media". just put value  "media/sound.mp3"
-	"music": "music.mp3",
 
-	//for slide #1
-	//we have two values here mirrorX and mirrorY.
-	"mirrorStyle" : "mirrorY",
+{
+	//this is defaults section. If you do not set parameter for a particular slide, the default is used.
+	
+    "pattern" : "0", //default pattern for slide (see patterns)
+    
+    "music": "music.mp3", //default music for slide - common value for every pattern
+	"mirrorStyle" : "mirrorY",	//mirror type for pattern #1
+	"faceOverlayModel" : "0",	//face overlay for pattern #5
+				/*	
+				Possible face overlay values are: (just put a proper number in config)
+				0>   Average face
+				1>   Terminator
+				2>   Walter
+				3>   Clooney
+				4>   Bieber
+				5>   Kim
+				6>   Rihanna
+				7>   Audrey Hepburn
+				8>   Bill Murray
+				9>   Sean Connery
+				10>   Cage
+				11>   The Queen
+				12>   Obama
+				13>   Chuck Norris
+				14>   Mona Lisa
+				15>   Picasso
+				16>   Abstract (Scream)
+				*/
 
-	//for slide #5
-	/*	
-	Possible values are: (just put a proper number in config)
-	0>   Average face
-	1>   Terminator
-	2>   Walter
-	3>   Clooney
-	4>   Bieber
-	5>   Kim
-	6>   Rihanna
-	7>   Audrey Hepburn
-	8>   Bill Murray
-	9>   Sean Connery
-	10>   Cage
-	11>   The Queen
-	12>   Obama
-	13>   Chuck Norris
-	14>   Mona Lisa
-	15>   Picasso
-	16>   Abstract (Scream)
-	*/
-	"faceOverlayModel" : "5",
 
-	//for slide #8
-	/* Values are: (mind lowercase letters)
-	unwell
-	inca
-	cheery
-	dopey
-	longface
-	lucky
-	overcute
-	aloof
-	evil
-	artificial
-	*/
-	"deformedFacePattern" : "longface",
+	"deformedFacePattern" : "unwell", //deform model for pattern #8
+				/* Values are: (mind lowercase letters)
+				unwell
+				inca
+				cheery
+				dopey
+				longface
+				lucky
+				overcute
+				aloof
+				evil
+				artificial
+				*/	
 
+    "fontsize" : "12px Arial",  //font style for pattern #3
+
+    "showVectorMask" : "1",		//show green vector outline while searching face for patterns #5 and #8
+    "videoLooped" : "1",		//loop videos for patterns #7 and #9
+    "image" : "images/img10.jpg",	//image for patterns #6 #10 and #11
+    "video" : "images/video7.mp4",	//video source for patterns #7 and #9
+    "preserveVideoRatio" : "1",		//preserve video ratio for pattern #9
+// defaults section END
+
+//legacy. do not touch
     "images" : {
-    	//for slide #10
         "slide10": "images/img10.jpg",
-        //for slide #11
         "slide11": "images/img11.jpg",
-
-        //for slide #6
         "slide6": "images/img6.png",
-
-        //for slide #7 - video in mp4
         "slide7": "images/video7.mp4"
         },
-
-     //slides sequence   
     "sequence" : [0,1,2,3,4,5,6,7,8,10,11,12],
+//legacy END
 
-    //for slide #3 - font style, if numbers are too big, or too small
-    "fontsize" : "12px Arial"
+
+//here goes the sequence of slides. for each slides you have to define a pattern, and required parameters. You can define all the params in each slide. Only necessary are being used
+
+    "slides": {
+
+   	//initital slide. has pattern #0
+        "0" : {
+            "pattern" : "0"
+        },
+    //second slide has pattern 9,and following params
+        "1": {
+            "pattern": "9",
+            "music" : "music.mp3",
+            "mirrorStyle" : "mirrorX",
+            "preserveVideoRatio" : "1"
+
+        },
+    //....
+        "2": {
+            "pattern": "5",
+            "music" : "",
+            "mirrorStyle" : "mirrorY",
+            "showVectorMask" : "0"
+
+        },
+        "3": {
+            "pattern": "0"
+           
+        },
+        "4": {
+            "pattern": "3",
+            "fontsize" : "8px Times"
+           
+        },
+
+        "5": {
+            "pattern": "4",
+            "music" : "music1.mp3"
+           
+        },
+        "6": {
+            "pattern": "5",
+            "faceoverlayModel" : "6",
+            "showVectorMask" : "0"
+           
+        },
+
+        "7": {
+            "pattern": "6",
+            "image" : "images/img6.png"
+           
+        },
+
+        "8": {
+            "pattern": "7",
+            "video" : "images/video7.mp4"  
+        },
+
+        "9": {
+            "pattern": "8",
+            "deformedFacePattern" : "evil"  
+        },
+
+        "10": {
+            "pattern": "9",
+            "video" : "images/video7.mp4"  
+        },
+
+        "11": {
+            "pattern": "10",
+            "image" : "images/img10.jpg",
+            "music" : "music.mp3"  
+        },
+        "12": {
+            "pattern": "11",
+            "image" : "images/img10.jpg"  
+        },
+        
+        // The last slide. This is the generic template for slide with all possible params
+        "13": {
+            "pattern": "0",
+            "music": "music.mp3",
+            "mirrorStyle" : "mirrorY",
+            "faceOverlayModel" : "5",
+            "deformedFacePattern" : "longface",
+            "fontsize" : "12px Arial",
+            "showVectorMask" : "1",
+            "videoLooped" : "1",
+            "image" : "images/img10.jpg",
+            "video" : "images/video7.mp4",
+            "preserveVideoRatio": "1"  
+        }
+    }
 }
+
+
+
+/*
+!!! 
+be very careful with commas (no comma must be after last value in array), and always put values (even numbers) in quotes
+*/
+
+

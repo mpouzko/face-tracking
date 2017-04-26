@@ -1,3 +1,10 @@
+v 0.6
+--------------------
+- Changed the structure of config file to allow multiple slides of same type with different params
+- added parameters into config
+
+
+
 v 0.5
 ----------
 What is implemented:
