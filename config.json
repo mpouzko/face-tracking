@@ -24,7 +24,7 @@
             "pattern" : "0"
         },
         "1": {
-            "pattern": "9",
+            "pattern": "12",
             "music" : "music.mp3",
             "mirrorStyle" : "mirrorX",
             "preserveVideoRatio" : "1"

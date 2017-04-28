@@ -1,3 +1,13 @@
+v 1.0
+--------------------------
+
+
+Whats'added:
+- background music autostart
+- pattern #12 : triangulated face overlay with semi-transparent image
+
+
+
 v 0.6
 --------------------
 - Changed the structure of config file to allow multiple slides of same type with different params

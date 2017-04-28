@@ -2315,6 +2315,96 @@ window.app = {
                 app.slides[9].data.ctracker = null;
             }
         },
+
+        12: { //must be #12
+            "name": "triangulated face overlay with semi-transparent image",
+            "data": {},
+            "init": function( patternParams = {} ) {
+                app.slides[12].data = {
+                    destroy: false,
+                    cc: app.overlay.getContext('2d'),
+                    ctracker: new clm.tracker(),
+                }
+                var outerPoints = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 33];
+                var img = document.getElementById("dongle");
+                img.src = patternParams.image;
+                img.classList.remove("hidden");
+                img.classList.add("transparent");
+
+
+                
+                
+                
+                
+
+
+
+                //app.slides[2].data.destroy2 = false;
+                //app.ctracker = new clm.tracker();
+                app.slides[12].data.ctracker.init(pModel);
+                app.slides[12].data.ctracker.start(app.video);
+                app.overlay.classList.add("mirrorX");
+                app.video.classList.add("mirrorX");
+
+                function drawLoop() {
+                    if (app.slides[12].data.destroy) return;
+                    requestAnimationFrame(drawLoop);
+                    app.slides[12].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+                    //draw triangles only if model has fit enough
+                    //if  (app.slides[12].data.ctracker.getScore() >= 0.5) {
+                    draw_trianlges(app.slides[12].data.ctracker.getCurrentPosition());
+                    app.slides[12].data.ctracker.draw(app.overlay, app.slides[12].data.ctracker.getCurrentParameters(), 'vertices');
+                    //}
+                    //    console.log( app.slides[7].data.ctracker.getCurrentPosition( ));
+                }
+
+                function draw_trianlges(pos) {
+                    app.slides[12].data.cc.strokeStyle = "lime";
+                    app.slides[12].data.cc.lineWidth = 1;
+                    app.slides[12].data.cc.lineCap = 'butt';
+                    var corners = [
+                        [0, 0],
+                        [0, app.overlay.height],
+                        [app.overlay.width, 0],
+                        [app.overlay.width, app.overlay.height]
+                    ];
+                    for (i = 0; i < pos.length; i++) {
+                        //draw outer lines
+                        if (i in outerPoints) {
+                            var point = [];
+                            var range = 1000000000;
+                            //define closest canvas corner
+                            for (j = 0; j < corners.length; j++) {
+                                tmp = Math.sqrt(Math.pow(pos[i][0] - corners[j][0], 2) + Math.pow(pos[i][1] - corners[j][1], 2));
+                                if (tmp < range) {
+                                    range = tmp;
+                                    point = [corners[j][0], corners[j][1]];
+                                }
+                            }
+                            //draw a line
+                            app.slides[12].data.cc.beginPath();
+                            app.slides[12].data.cc.moveTo(pos[i][0], pos[i][1]);
+                            app.slides[12].data.cc.lineTo(point[0], point[1]);
+                            app.slides[12].data.cc.stroke();
+                        }
+                    }
+                };
+                drawLoop();
+            },
+            "destroy": function() {
+                app.overlay.classList.remove("mirrorX");
+                app.video.classList.remove("mirrorX");
+                var img = document.getElementById("dongle");
+                img.src = '';
+                img.classList.add("hidden");
+                img.classList.remove("transparent");
+                app.slides[12].data.destroy = true;
+                app.slides[12].data.ctracker.stop(app.video);
+                app.slides[12].data.cc.clearRect(0, 0, app.overlay.width, app.overlay.height);
+                app.slides[12].data.ctracker = null;
+            }
+        },
+
     },
     "initStart": function() {
         if (!app.inited) {
@@ -2407,6 +2497,7 @@ window.app = {
             //var music = document.getElementById("music");
             music.insertBefore(bgmusic, null);
             music.load();
+
             //insert video for slide 10
             //var vid10 = document.getElementById("video10");
             var vid10src = document.createElement("source");
